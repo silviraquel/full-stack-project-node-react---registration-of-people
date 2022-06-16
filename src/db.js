@@ -11,14 +11,4 @@ const sequelize = new Sequelize(dbName, dbUser, dbPassword, {
     dialect: "mysql", 
 });
 
-try {
-
-    sequelize.authenticate()
-    console.log('conectado com sucesso no Sequelize')
-
-}catch(err) {
-    console.log('não foi possivel conectar:  ', err)
-}
-
-
 module.exports = sequelize
