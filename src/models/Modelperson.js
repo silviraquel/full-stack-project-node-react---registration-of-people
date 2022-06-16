@@ -21,9 +21,6 @@ const Modelperson = db.define( 'people', {
         type: DataTypes.STRING,
     },
 
-    created_at: {
-        type: DataTypes.TIME,       
-    },
 })
 
 module.exports = Modelperson;
