@@ -1,4 +1,4 @@
-const Modelperson = require ('./src/models/Modelperson')
+import Modelperson from './src/models/Modelperson.js'
 
 function findAll(req, res) {
     Modelperson.findAll().then((result) => res.json(result));
@@ -41,4 +41,4 @@ function findAll(req, res) {
     Modelperson.findAll().then((result) => res.json(result));
   }
   
-  export default { findAll, addperson, findperson, updateperson, deleteperson };
+ module.exports = { findAll, addperson, findperson, updateperson, deleteperson };

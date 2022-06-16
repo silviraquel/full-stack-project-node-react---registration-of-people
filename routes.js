@@ -1,9 +1,12 @@
-const express = require ('express');
+import express from 'express';
+import  { findAll, addperson, findperson, updateperson, deleteperson } from './src/controllers/Controllerperson.js';
 
-const routes = express.Router();
+export default routes = express.Router();
 
-routes.get("/", (req, res) => {
-  return res.json({ name: "Ciclano Fulano" });
-});
+routes.get("/person", Controllerperson.findAll);
+routes.post("/person", Controllerperson.addClient);
+routes.get("/person/:id", Controllerperson.findClient);
+routes.put("/person/:id", Controllerperson.updateClient);
+routes.delete("/person/:id", Controllerperson.deleteClient);
 
-module.exports = routes
+
