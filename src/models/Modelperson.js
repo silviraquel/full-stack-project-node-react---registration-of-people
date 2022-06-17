@@ -1,7 +1,7 @@
-const { DataTypes } = require ("sequelize");
+import { DataTypes } from "sequelize";
 import db from '../db.js';
 
-export default Modelperson = db.define( 'people', {
+const Modelperson = db.define( 'people', {
     id: {
         type: DataTypes.INTEGER,
         primaryKey: true,
@@ -23,3 +23,4 @@ export default Modelperson = db.define( 'people', {
 
 })
 
+export default Modelperson;
