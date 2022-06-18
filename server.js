@@ -1,6 +1,8 @@
 import express from 'express';
 import get_routes from './routes/get_routes.js';
 import getid_routes from './routes/getid_routes.js';
+import postroutes from './routes/post_routes.js';
+
 
 import db from './src/db.js';
 
@@ -11,6 +13,7 @@ const app = express();
 app.use(express.json());
 app.use(get_routes);
 app.use(getid_routes);
+app.use(postroutes);
 
 
 app.get("/", (req, res) => {
