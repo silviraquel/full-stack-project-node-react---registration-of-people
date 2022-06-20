@@ -5,7 +5,13 @@ function findAll(req, res) {
   };
 
   function findPerson(req, res) {
-    Modelperson.findByPk(req.params.id).then((result) => res.json(result));
+    Modelperson.findByPk(req.params.id).then((result) => {
+      if(result == null){
+        return res.status(404).json({message:"Pessoa não encontrada"});
+      }
+      return res.json(result);
+    });
+    
   };
 
   function addPerson(req, res) {
