@@ -24,4 +24,24 @@ function findAll(req, res) {
     }).then((result) => res.json(result));
   };
 
-  export default {findAll, findPerson, addPerson};
+  async function updateperson(req, res) {
+    await Modelperson.update(
+      {
+        name: req.body.name,
+        birthday: req.body.birthday,
+        cpf: req.body.cpf,
+        createdAt: req.body.createdAt,
+        updatedAt:req.body.updatedAt
+        },
+      {
+        where: {
+          id: req.params.id,
+        },
+      }
+    );
+  
+    Modelperson.findByPk(req.params.id).then((result) => res.json(result));
+  }
+  
+
+  export default {findAll, findPerson, addPerson, updateperson};
