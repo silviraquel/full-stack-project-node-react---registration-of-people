@@ -1,4 +1,5 @@
 import Modelperson from  '../models/Modelperson.js';
+import {isCpf} from 'node-simple-validator'
 
 function findAll(req, res) {
     Modelperson.findAll().then((result) => res.json(result));
@@ -15,6 +16,11 @@ function findAll(req, res) {
   };
 
   function addPerson(req, res) {
+
+    if(!isCpf(req.body.cpf)){
+      return res.status(400).json({message:"CPF inválido"});
+    }
+
     Modelperson.create({
       name: req.body.name,
       birthday: req.body.birthday,
@@ -52,5 +58,6 @@ function findAll(req, res) {
   
     Modelperson.findAll().then((result) => res.json(result));
   }
+
 
   export default {findAll, findPerson, addPerson, updateperson, deleteperson};
