@@ -43,5 +43,14 @@ function findAll(req, res) {
     Modelperson.findByPk(req.params.id).then((result) => res.json(result));
   }
   
+  async function deleteperson(req, res) {
+    await Modelperson.destroy({
+      where: {
+        id: req.params.id,
+      },
+    });
+  
+    Modelperson.findAll().then((result) => res.json(result));
+  }
 
-  export default {findAll, findPerson, addPerson, updateperson};
+  export default {findAll, findPerson, addPerson, updateperson, deleteperson};
