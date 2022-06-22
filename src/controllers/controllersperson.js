@@ -17,11 +17,19 @@ function findAll(req, res) {
   };
 
   function addPerson(req, res) {
-    const validate = validator({ format: 'YYYY-MM-DD' })
 
+    
+    const validate = validator({ format: 'YYYY-MM-DD' })
+    
     if(!validate(req.body.birthday)){
       return res.status(400).json({message: "birthday-format inválido"})
     }
+
+    const dataAtual= new Date().getTime()
+    const data = new Date(req.body.birthday).getTime()
+      if (data > dataAtual) {
+      return res.status(400).json({message: "Esta data não pode ser futura!"})
+      }
 
     if(!isCpf(req.body.cpf)){
       return res.status(400).json({message:"CPF inválido"});
