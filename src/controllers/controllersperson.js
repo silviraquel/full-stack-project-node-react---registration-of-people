@@ -16,9 +16,8 @@ function findAll(req, res) {
     
   };
 
-  function addPerson(req, res) {
+  async function addPerson(req, res) {
 
-    
     const validate = validator({ format: 'YYYY-MM-DD' })
     
     if(!validate(req.body.birthday)){
@@ -30,19 +29,26 @@ function findAll(req, res) {
       if (data > dataAtual) {
       return res.status(400).json({message: "Esta data não pode ser futura!"})
       }
+ 
+      if(!isCpf(req.body.cpf)){
+        return res.status(400).json({message:"CPF inválido"});
+      }
 
-    if(!isCpf(req.body.cpf)){
-      return res.status(400).json({message:"CPF inválido"});
-    }
-
-    Modelperson.create({
+      const cpfExists = await Modelperson.findOne({
+        where:({cpf:req.body.cpf})
+      });
+        if(cpfExists){
+         return res.status(400).json({message:"Esse CPF já foi cadastrado"})
+       }
+     
+      Modelperson.create({
       name: req.body.name,
       birthday: req.body.birthday,
       cpf: req.body.cpf,
       createdAt: req.body.createdAt,
       updatedAt:req.body.updatedAt
     }).then((result) => res.json(result));
-  };
+  }
 
   async function updateperson(req, res) {
     await Modelperson.update(
