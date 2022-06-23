@@ -18,39 +18,60 @@ function findAll(req, res) {
 
   async function addPerson(req, res) {
 
-    
-    let cleanCpf = req.body.cpf.replace(/\D/g,'');
+    req.body.cpf = req.body.cpf.replace(/\D/g,'');
+
+    try {
+
+      validatePerson(req);
+
+      Modelperson.create({
+        name: req.body.name,
+        birthday: req.body.birthday,
+        cpf:req.body.cpf,
+        createdAt: req.body.createdAt,
+        updatedAt:req.body.updatedAt
+      }).then((result) => res.json(result));
+
+    } catch (error) {
+      return res.status(error.status_code).json({message:error.message});
+    }
+
+  }
+
+  function validatePerson(req){
     
     const validate = validator({ format: 'YYYY-MM-DD' })
     
     if(!validate(req.body.birthday)){
-      return res.status(400).json({message: "birthday-format inválido"})
+        throw getObjException("birthday-format inválido",400);
     }
     
     const dataAtual= new Date().getTime()
     const data = new Date(req.body.birthday).getTime()
     if (data > dataAtual) {
-      return res.status(400).json({message: "Esta data não pode ser futura!"})
+        throw getObjException("Esta data não pode ser futura!",400);
     }
     
-    if(!isCpf(cleanCpf)){
-      return res.status(400).json({message:"CPF inválido"});
+    if(!isCpf(req.body.cpf)){
+        throw getObjException("CPF inválido!",400);
     }
     
-    const cpfExists = await Modelperson.findOne({
-      where:({cpf:cleanCpf})
+    const cpfExists = Modelperson.findOne({
+      where:({cpf:req.body.cpf})
     });
     if(cpfExists){
-      return res.json({message:"Esse CPF já foi cadastrado"})
+        throw getObjException("Esse CPF já foi cadastrado!",400);
     }
-    
-    Modelperson.create({
-      name: req.body.name,
-      birthday: req.body.birthday,
-      cpf: cleanCpf,
-      createdAt: req.body.createdAt,
-      updatedAt:req.body.updatedAt
-    }).then((result) => res.json(result));
+  }
+
+  function getObjException(message, status_code) {
+    if(status_code === undefined) {
+      status_code = 200;
+    }
+    return {
+      message:message,
+      status_code:status_code
+    }
   }
 
   async function updateperson(req, res) {
