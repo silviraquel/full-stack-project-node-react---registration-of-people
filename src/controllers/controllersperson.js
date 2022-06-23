@@ -75,22 +75,31 @@ function findAll(req, res) {
   }
 
   async function updateperson(req, res) {
-    await Modelperson.update(
-      {
-        name: req.body.name,
-        birthday: req.body.birthday,
-        cpf: req.body.cpf,
-        createdAt: req.body.createdAt,
-        updatedAt:req.body.updatedAt
-        },
-      {
-        where: {
-          id: req.params.id,
-        },
-      }
-    );
-  
-    Modelperson.findByPk(req.params.id).then((result) => res.json(result));
+
+    req.body.cpf = req.body.cpf.replace(/\D/g,'');
+    
+    try {
+      validatePerson(req);
+      await Modelperson.update(
+        {
+          name: req.body.name,
+          birthday: req.body.birthday,
+          cpf: req.body.cpf,
+          createdAt: req.body.createdAt,
+          updatedAt:req.body.updatedAt
+          },
+        {
+          where: {
+            id: req.params.id,
+          },
+        }
+      );
+    
+      Modelperson.findByPk(req.params.id).then((result) => res.json(result));
+      
+    } catch (error) {
+      return res.status(error.status_code).json({message:error.message});
+    }
   }
   
   async function deleteperson(req, res) {
