@@ -14,6 +14,15 @@ function findAlladdress(req, res) {
     
   };
 
+  function addAddress(req, res) {
+    Modeladdress.create({
+      city: req.body.city,
+      cep: req.body.cep,
+      uf: req.body.uf,
+      createdAt: req.body.createdAt,
+      updatedAt:req.body.updatedAt
+    }).then((result) => res.json(result));
+  }
 
-  export default {findAlladdress, findAddress};
+  export default {findAlladdress, findAddress, addAddress};
 

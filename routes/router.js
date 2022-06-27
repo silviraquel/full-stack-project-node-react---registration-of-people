@@ -13,6 +13,8 @@ routes.put("/person/:id",controllersperson.updateperson);
 routes.delete("/person/:id",controllersperson.deleteperson);
 routes.get("/address",controllersaddress.findAlladdress);
 routes.get("/address/:id",controllersaddress.findAddress);
+routes.post("/address",controllersaddress.addAddress);
+
 
 
 
