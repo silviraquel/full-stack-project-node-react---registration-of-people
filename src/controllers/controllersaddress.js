@@ -42,8 +42,16 @@ function findAlladdress(req, res) {
    );
     Modeladdress.findByPk(req.params.id).then((result) => res.json(result));
   }
+
+  async function deleteaddress(req, res) {
+    await Modeladdress.destroy({
+      where: {
+        id: req.params.id,
+      },
+    });
   
+    Modeladdress.findAll().then((result) => res.json(result));
+  }
 
-
-  export default {findAlladdress, findAddress, addAddress, updateAddress};
+  export default {findAlladdress, findAddress, addAddress, updateAddress, deleteaddress};
 

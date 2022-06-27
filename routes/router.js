@@ -15,6 +15,8 @@ routes.get("/address",controllersaddress.findAlladdress);
 routes.get("/address/:id",controllersaddress.findAddress);
 routes.post("/address",controllersaddress.addAddress);
 routes.put("/address/:id",controllersaddress.updateAddress);
+routes.delete("/address/:id",controllersaddress.deleteaddress);
+
 
 
 
