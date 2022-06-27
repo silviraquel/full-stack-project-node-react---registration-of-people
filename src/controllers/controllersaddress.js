@@ -24,5 +24,26 @@ function findAlladdress(req, res) {
     }).then((result) => res.json(result));
   }
 
-  export default {findAlladdress, findAddress, addAddress};
+  async function updateAddress(req, res) {
+    
+   await Modeladdress.update(
+    {
+      city: req.body.city,
+      cep: req.body.cep,
+      uf: req.body.uf,
+      createdAt: req.body.createdAt,
+      updatedAt:req.body.updatedAt
+    },
+    {
+    where: {
+      id: req.params.id,
+    },
+   }
+   );
+    Modeladdress.findByPk(req.params.id).then((result) => res.json(result));
+  }
+  
+
+
+  export default {findAlladdress, findAddress, addAddress, updateAddress};
 
