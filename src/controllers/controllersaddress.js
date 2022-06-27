@@ -20,7 +20,8 @@ function findAlladdress(req, res) {
       cep: req.body.cep,
       uf: req.body.uf,
       createdAt: req.body.createdAt,
-      updatedAt:req.body.updatedAt
+      updatedAt:req.body.updatedAt,
+      person_id: req.body.person_id
     }).then((result) => res.json(result));
   }
 
@@ -32,7 +33,9 @@ function findAlladdress(req, res) {
       cep: req.body.cep,
       uf: req.body.uf,
       createdAt: req.body.createdAt,
-      updatedAt:req.body.updatedAt
+      updatedAt:req.body.updatedAt,
+      person_id: req.body.person_id
+
     },
     {
     where: {

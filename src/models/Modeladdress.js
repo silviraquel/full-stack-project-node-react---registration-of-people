@@ -1,5 +1,4 @@
 import { DataTypes } from "sequelize";
-import Modelperson from "./Modelperson.js";
 import db from '../db.js';
 
 
@@ -25,8 +24,5 @@ const Modeladdress = db.define( 'address', {
 
 });
 
-Modelperson.hasOne(Modeladdress, {
-    foreignKey: 'person_id'
-});
 
 export default Modeladdress;
