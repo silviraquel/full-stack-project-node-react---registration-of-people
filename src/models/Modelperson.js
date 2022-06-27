@@ -23,31 +23,7 @@ const Modelperson = db.define( 'people', {
 
 })
 
-const Modeladdress = db.define( 'address', {
-    id:{
-        type: DataTypes.INTEGER,
-        primaryKey: true,
-        autoIncrement: true,
-        allowNull: false,
-    },
 
-    city: {
-        type: DataTypes.STRING,
-    },
 
-    cep: {
-        type: DataTypes.STRING,
-    },
-    
-    uf: {
-        type: DataTypes.STRING,
-    },
-
-});
-
-Modelperson.hasOne(Modeladdress, {
-    foreignKey: 'person_id'
-});
-
-export default {Modeladdress, Modelperson};
+export default Modelperson;
 
