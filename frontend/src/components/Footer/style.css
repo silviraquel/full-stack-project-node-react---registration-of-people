@@ -1,0 +1,7 @@
+footer {
+    position:relative;
+    bottom:0;
+    height:90px;  
+    background-color: rgba(208, 199, 199, 0.87);
+    padding-bottom: 0%;
+}
