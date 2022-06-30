@@ -4,7 +4,6 @@ import './style.css';
 import Table from 'react-bootstrap/Table';
 import Container from 'react-bootstrap/Container';
 import Button from 'react-bootstrap/Button';
-import axios from '../../../src/services/axios'
 
 
 const People = () => {
@@ -13,9 +12,6 @@ const People = () => {
 
   return (
     <>
-    <div className='btn'>
-    <Button size="lg" variant='success' className=' float-right'  >Cadastrar</Button>
-    </div>
       <Container className="topo" class='d-flex align-items-center  flex-direction: column align-items-stretch padding-top'>
         <Table>
           <thead>
@@ -35,12 +31,15 @@ const People = () => {
               <td>Mark</td>
               <td>Otto</td>
               <td>@mdo</td>
-              <Button size="lg active">Editar</Button>
+              <Button size="lg active">EDITAR</Button>
             </tr>
 
           </tbody>
         </Table>
       </Container>
+      <div className="d-grid gap-2">
+      <Button size="lg" variant='success'>Cadastrar</Button>
+      </div>
 
     </>
   )
