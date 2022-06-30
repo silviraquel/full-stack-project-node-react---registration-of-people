@@ -18,5 +18,5 @@ app.get("/", (req, res) => {
   
 
 db.sync().then(()=> {
-    app.listen(3000)
+    app.listen(3001)
 })
