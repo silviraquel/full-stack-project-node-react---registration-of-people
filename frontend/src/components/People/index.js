@@ -1,5 +1,5 @@
 import React from 'react';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import './style.css';
 import Table from 'react-bootstrap/Table';
 import Container from 'react-bootstrap/Container';
@@ -8,42 +8,43 @@ import Button from 'react-bootstrap/Button';
 
 const People = () => {
 
-  const [person, setPerson] = useState([]);
+  const [person, setPerson] = useState({});
 
-  return (
-    <>
-      <Container className="topo" class='d-flex align-items-center  flex-direction: column align-items-stretch padding-top'>
-        <Table>
-          <thead>
+      useEffect(() => {
+        const getData = async () => {
+          const res = await fetch('/person');
+          const person = res.json();
+          console.log(person);
+          setPerson(person);
+        };
+        getData();
+      }, [])
 
-            <tr>
-              <th>ID</th>
-              <th>Name</th>
-              <th>Birthday</th>
-              <th>CPF</th>
-            </tr>
+    return (
+      <>
+        <Container className="topo" class='d-flex align-items-center  flex-direction: column align-items-stretch padding-top'>
+          <Table>
+            <thead>
 
-          </thead>
-          <tbody>
+              <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Birthday</th>
+                <th>CPF</th>
+              </tr>
 
-            <tr>
-              <td>1</td>
-              <td>Mark</td>
-              <td>Otto</td>
-              <td>@mdo</td>
-              <Button size="lg active">EDITAR</Button>
-            </tr>
+            </thead>
+            <tbody>
+            </tbody>
+          </Table>
+        </Container>
+        <div className="d-grid gap-2">
+          <Button size="lg" variant='success'>Cadastrar</Button>
+        </div>
 
-          </tbody>
-        </Table>
-      </Container>
-      <div className="d-grid gap-2">
-      <Button size="lg" variant='success'>Cadastrar</Button>
-      </div>
-
-    </>
-  )
-}
+      </>
+    )
+  }
 
 export default People;
 
