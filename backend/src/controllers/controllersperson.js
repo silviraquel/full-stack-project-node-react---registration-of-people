@@ -3,7 +3,12 @@ import {isCpf} from 'node-simple-validator'
 import validator from 'is-my-date-valid'
 
 function findAll(req, res) {
-    Modelperson.findAll().then((result) => res.json(result));
+    Modelperson.findAll({
+      raw: true,
+      nest : true
+    }).then((result) => {
+      return res.json(result)
+    });
   };
 
   function findPerson(req, res) {

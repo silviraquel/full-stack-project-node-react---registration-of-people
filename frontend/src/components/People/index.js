@@ -8,14 +8,16 @@ import Button from 'react-bootstrap/Button';
 
 const People = () => {
 
-  const [person, setPerson] = useState({});
+  const [person, setPerson] = useState([]);
 
       useEffect(() => {
         const getData = async () => {
           const res = await fetch('/person');
-          const person = res.json();
-          console.log(person);
-          setPerson(person);
+          const objPromise = res.json();
+          objPromise.then(person => {
+            setPerson(person);
+          });
+
         };
         getData();
       }, [])
@@ -35,6 +37,15 @@ const People = () => {
 
             </thead>
             <tbody>
+
+               {person.map((plp, index) => (
+                  <tr key ={index.id}>
+                  <td>{plp.id}</td>
+                  <td>{plp.name}</td>
+                  <td>{plp.birthday}</td>
+                  <td>{plp.cpf}</td>
+                  </tr>
+                 ))}    
             </tbody>
           </Table>
         </Container>
