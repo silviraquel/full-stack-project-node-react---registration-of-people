@@ -4,6 +4,7 @@ import './style.css';
 import Table from 'react-bootstrap/Table';
 import Container from 'react-bootstrap/Container';
 import Button from 'react-bootstrap/Button';
+import api from '../../services/axios';
 
 
 const People = () => {
@@ -11,20 +12,17 @@ const People = () => {
   const [person, setPerson] = useState([]);
 
       useEffect(() => {
-        const getData = async () => {
-          const res = await fetch('/person');
-          const objPromise = res.json();
-          objPromise.then(person => {
-            setPerson(person);
-          });
+        
+        api.get('/person').then(response => {
+          setPerson(response.data);
+        });
 
-        };
-        getData();
-      }, [])
+     }, [])
 
     return (
       <>
         <Container className="topo" class='d-flex align-items-center  flex-direction: column align-items-stretch padding-top'>
+            <Button size="md" variant="secondary">CADASTRAR</Button>
           <Table>
             <thead>
 
@@ -33,26 +31,27 @@ const People = () => {
                 <th>Name</th>
                 <th>Birthday</th>
                 <th>CPF</th>
+                <th>Opções</th>
               </tr>
 
             </thead>
             <tbody>
 
-               {person.map((plp, index) => (
-                  <tr key ={index.id}>
+               {person.map((plp) => (
+                  <tr key ={plp.id}>
                   <td>{plp.id}</td>
                   <td>{plp.name}</td>
                   <td>{plp.birthday}</td>
                   <td>{plp.cpf}</td>
+                  <td>
+                    <Button size="md" variant="primary">EDITAR</Button>
+                    <Button size="md" variant="danger">EXCLUIR</Button>
+                  </td>
                   </tr>
                  ))}    
             </tbody>
           </Table>
         </Container>
-        <div className="d-grid gap-2">
-          <Button size="lg" variant='success'>Cadastrar</Button>
-        </div>
-
       </>
     )
   }
