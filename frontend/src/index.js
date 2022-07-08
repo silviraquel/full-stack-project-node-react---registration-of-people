@@ -10,7 +10,7 @@ import './index.css';
 import App from './App';
 
 import Login from './pages/Login';
-import Author from './pages/Author';
+import Register from './pages/Register';
 import Home from './pages/Home';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -25,7 +25,7 @@ render(
 
       <Route path="/" element={<App />}>
         <Route index element={<Home />} />
-        <Route path="authors" element={<Author />} />
+        <Route path="register" element={<Register />} />
         <Route path="*" element={
           <h4>Página não encontrada!</h4>
         } />

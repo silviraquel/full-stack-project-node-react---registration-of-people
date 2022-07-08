@@ -12,7 +12,7 @@ const Index = () => {
 
       useEffect(() => {
         
-        axios.get('/person').then(response => {
+        axios.get('http://localhost:3001/person').then(response => {
           setPerson(response.data);
         });
 

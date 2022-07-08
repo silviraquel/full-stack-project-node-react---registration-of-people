@@ -25,10 +25,9 @@ function findAll(req, res) {
 
     req.body.cpf = req.body.cpf.replace(/\D/g,'');
 
-    try {
-
-      validatePerson(req);
-
+    const validar = validatePerson(req);
+    
+    validar.then(result => {
       Modelperson.create({
         name: req.body.name,
         birthday: req.body.birthday,
@@ -36,14 +35,13 @@ function findAll(req, res) {
         createdAt: req.body.createdAt,
         updatedAt:req.body.updatedAt
       }).then((result) => res.json(result));
-
-    } catch (error) {
+    }).catch(error => {
       return res.status(error.status_code).json({message:error.message});
-    }
+    });
 
   }
 
-  function validatePerson(req){
+  async function validatePerson(req) {
     
     const validate = validator({ format: 'YYYY-MM-DD' })
     
@@ -61,12 +59,14 @@ function findAll(req, res) {
         throw getObjException("CPF inválido!",400);
     }
     
-    const cpfExists = Modelperson.findOne({
+    const cpfExists = await Modelperson.findOne({
       where:({cpf:req.body.cpf})
     });
-    if(cpfExists){
-        throw getObjException("Esse CPF já foi cadastrado!",400);
+
+    if(cpfExists != null) {
+      throw getObjException("Esse CPF já foi cadastrado!",400);
     }
+
   }
 
   function getObjException(message, status_code) {
