@@ -10,7 +10,7 @@ export default function Header(){
         </button>
 
         <div className="mx-auto order-0">
-        <a className="navbar-brand mx-auto">Registration of People</a>
+        <a href="/" className="navbar-brand mx-auto">Registration of People</a>
     </div>      
     </header>
     </>

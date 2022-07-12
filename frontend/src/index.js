@@ -12,6 +12,7 @@ import App from './App';
 import Login from './pages/Login';
 import Register from './pages/Register';
 import Home from './pages/Home';
+import Edit from './pages/Edit';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 
@@ -26,6 +27,7 @@ render(
       <Route path="/" element={<App />}>
         <Route index element={<Home />} />
         <Route path="register" element={<Register />} />
+        <Route path="edit" element={<Edit />} />
         <Route path="*" element={
           <h4>Página não encontrada!</h4>
         } />
