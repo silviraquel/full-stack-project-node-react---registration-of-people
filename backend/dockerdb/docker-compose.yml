@@ -1,0 +1,16 @@
+version: '3'
+services:
+  dbmysql:
+    image: mysql:8-oracle
+    ports:
+      - "3306:3306"
+    volumes:
+      - dbpeople:/var/lib/mysql
+    environment:
+      - MYSQL_ROOT_PASSWORD=123456xe
+      - MYSQL_DATABASE=${DB_NAME}
+      - MYSQL_USER=${DB_USER}
+      - MYSQL_PASSWORD=${DB_PASSWORD}
+    restart: unless-stopped
+volumes:
+  dbpeople:

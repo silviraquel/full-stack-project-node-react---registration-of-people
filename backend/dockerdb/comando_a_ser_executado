@@ -1,0 +1,5 @@
+To up service (inside this directory)
+docker compose --env-file ../.env up -d
+
+To down
+docker compose --env-file ../.env down
