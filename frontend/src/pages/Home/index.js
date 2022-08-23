@@ -4,7 +4,7 @@ import Table from 'react-bootstrap/Table';
 import Container from 'react-bootstrap/Container';
 import Button from 'react-bootstrap/Button';
 import axios from 'axios';
-import {useNavigate} from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const Index = (props) => {
   const navigate = useNavigate();
@@ -17,15 +17,26 @@ const Index = (props) => {
 
   useEffect(() => {
 
-    axios.get('http://localhost:3001/person').then(response => {
-      setPerson(response.data);
-    });
+    findAll();
 
   }, [])
 
+    function findAll() {
+      axios.get('http://localhost:3001/person').then(response => {
+        setPerson(response.data);
+      });
+    }
+
+    function deletePerson(id) {
+      axios.delete(`http://localhost:3001/person/${id}`).then(response => {
+        findAll();
+      });
+    }
+    
+
   function buttonEdit(plp) {
     return navigate('/edit')
-  } 
+  }
 
   return (
     <>
@@ -52,12 +63,14 @@ const Index = (props) => {
                 <td>{plp.cpf}</td>
                 <td>
                   <Button
-                    onClick={() => {buttonEdit()}}
+                    onClick={() => { buttonEdit() }}
                     size="md"
 
                   > E D I T
                   </Button>
-                  <Button size="md" variant="danger">DELETE</Button>
+                  <Button size="md" variant="danger"
+                  onClick={() => {deletePerson(plp.id)}}
+                  >DELETE</Button>
 
                 </td>
               </tr>
