@@ -19,6 +19,7 @@ export default function Register() {
         cpf
       })
         .then((response) => {
+          alert("Registration Sucess!!")
         })
     } catch (err) {
       console.log(err)
