@@ -8,8 +8,6 @@ export default function Register() {
   const [birthday, setBirthday] = useState('');
   const [cpf, setCpf] = useState('');
 
-
-
   const handleSubmit = async (e) => {
     try {
       e.preventDefault();
@@ -18,7 +16,7 @@ export default function Register() {
         birthday,
         cpf
       })
-        .then((response) => {
+        .then(() => {
           alert("Registration Sucess!!")
         })
     } catch (err) {

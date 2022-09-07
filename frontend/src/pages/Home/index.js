@@ -14,7 +14,6 @@ const Index = (props) => {
   const [id] = useState([])
   const [person, setPerson] = useState([]);
 
-
   useEffect(() => {
 
     findAll();
@@ -35,7 +34,8 @@ const Index = (props) => {
     
 
   function buttonEdit(plp) {
-    return navigate('/edit')
+    localStorage.setItem("person_to_edit", JSON.stringify(plp));
+    return navigate('/edit');
   }
 
   return (
@@ -63,7 +63,7 @@ const Index = (props) => {
                 <td>{plp.cpf}</td>
                 <td>
                   <Button
-                    onClick={() => { buttonEdit() }}
+                    onClick={() => { buttonEdit(plp) }}
                     size="md"
 
                   > E D I T
