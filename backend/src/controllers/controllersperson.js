@@ -14,7 +14,7 @@ function findAll(req, res) {
   function findPerson(req, res) {
     Modelperson.findByPk(req.params.id).then((result) => {
       if(result == null){
-        return res.status(404).json({message:"Pessoa não encontrada"});
+        return res.status(404).json({message:"Person not found!"});
       }
       return res.json(result);
     });
@@ -47,13 +47,13 @@ function findAll(req, res) {
     const validate = validator({ format: 'YYYY-MM-DD' })
     
     if(!validate(req.body.birthday)){
-        throw getObjException("birthday-format inválido",400);
+        throw getObjException("birthday-format invalid",400);
     }
     
     const dataAtual= new Date().getTime()
     const data = new Date(req.body.birthday).getTime()
     if (data > dataAtual) {
-        throw getObjException("Esta data não pode ser futura!",400);
+        throw getObjException("A date in the future is not permited!",400);
     }
 
     if (is_new) {
@@ -66,7 +66,7 @@ function findAll(req, res) {
       });
   
       if(cpfExists != null) {
-        throw getObjException("Esse CPF já foi cadastrado!",400);
+        throw getObjException("This CPF was already registered!",400);
       }
     }
 

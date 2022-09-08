@@ -49,7 +49,7 @@ const Index = (props) => {
               <th>Name</th>
               <th>Birthday</th>
               <th>CPF</th>
-              <th>Opções</th>
+              <th>Options</th>
             </tr>
 
           </thead>

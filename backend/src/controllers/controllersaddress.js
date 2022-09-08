@@ -7,7 +7,7 @@ function findAlladdress(req, res) {
   function findAddress(req, res) {
     Modeladdress.findByPk(req.params.id).then((result) => {
       if(result == null){
-        return res.status(404).json({message:"Endereço não encontrado"});
+        return res.status(404).json({message:"Adress not found!"});
       }
       return res.json(result);
     });
