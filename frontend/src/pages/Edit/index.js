@@ -1,62 +1,43 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import moment from 'moment'
-import './style.css'
+import { useNavigate } from "react-router-dom";
 
+import './style.css'
 
 export default function Edit() {
 
-  const [name, setName] = useState('');
-  const [birthday, setBirthday] = useState('');
-  const [cpf, setCpf] = useState('');
-  const [objPerson, setobjPerson] = useState(JSON.parse(localStorage.getItem('person_to_edit')));
-  const [id] = useState([objPerson.id])
+  let objPerson = JSON.parse(localStorage.getItem('person_to_edit'));
+  let birthEdit = moment(objPerson.birthday).format('YYYY-MM-DD');
 
+  const navigate = useNavigate();
+  const [name, setName] = useState(objPerson.name);
+  const [birthday, setBirthday] = useState(birthEdit);
+  const [cpf, setCpf] = useState(objPerson.cpf);
 
-  useEffect(() => {
-
-    handleEdit();
-
-  });
-
-  
-  function handleEdit() {
-
-    let birthEdit = moment(objPerson.birthday).format('YYYY-MM-DD')
-    setName(objPerson.name);
-    setBirthday(birthEdit);
-    setCpf(objPerson.cpf);
-  }
-
-  async function updatePerson(e){
+  function updatePerson(e){
     e.preventDefault();
-     try{
-        const dataPost = {
-          name: name,
-          birthday: birthday,
-          cpf: cpf
-        };
 
-        console.log(dataPost);
+    const dataPost = {
+      name: name,
+      birthday: birthday,
+      cpf: cpf
+    };
 
-        axios.put(`http://localhost:3001/person/${id}`, dataPost).then(response => {
-          alert("update successfully!!");
-        });
-       }catch (err) {
-       console.log(err)
-       alert(err.response.data.message)
-     }
- }
+    axios.put(`http://localhost:3001/person/${objPerson.id}`, dataPost)
+      .then(response => {
+        
+        alert('Dados atualizados com sucesso!!');
+        navigate('/');
 
- function  teste(){
-  return alert('recebeu!')
+      }).catch(error => alert(error.response.data.message));
  }
 
 
 return (
   <>
 
-    <form className="index" onSubmit={(e) => updatePerson(name,birthday,cpf)}>
+    <form className="index" onSubmit={updatePerson}>
       <h2 >Person's Edition</h2>
 
       <div>
@@ -64,11 +45,11 @@ return (
       </div>
 
       <div>
-        <input type="date" placeholder="birthday" onChange={(e) => setBirthday(e.target.value)} defaultValue={birthday} required />
+        <input type="date" placeholder="birthday" onChange={(e) => setBirthday(e.target.value)} defaultValue={birthEdit} required />
       </div>
 
       <div>
-        <input type="text" placeholder="CPF" onChange={(e) => setCpf(e.target.value)} defaultValue={cpf} required />
+        <input type="text" placeholder="CPF" onChange={(e) => setCpf(e.target.value)} defaultValue={objPerson.cpf} required />
       </div>
 
       <button type="submit">Edit person</button>
