@@ -20,8 +20,7 @@ export default function Edit() {
 
     const dataPost = {
       name: name,
-      birthday: birthday,
-      cpf: cpf
+      birthday: birthday
     };
 
     axios.put(`http://localhost:3001/person/${objPerson.id}`, dataPost)
@@ -49,7 +48,7 @@ return (
       </div>
 
       <div>
-        <input type="text" placeholder="CPF" onChange={(e) => setCpf(e.target.value)} defaultValue={objPerson.cpf} required />
+        <input type="text" placeholder="CPF" onChange={(e) => setCpf(e.target.value)} defaultValue={objPerson.cpf} disabled />
       </div>
 
       <button type="submit">Edit person</button>

@@ -23,7 +23,8 @@ function findAll(req, res) {
 
   async function addPerson(req, res) {
 
-    req.body.cpf = req.body.cpf.replace(/\D/g,'');
+      // substitui o formato cpf com pontos e números para somente números
+    req.body.cpf = req.body.cpf.replace(/\D/g,''); 
 
     const validar = validatePerson(req);
     
@@ -41,7 +42,7 @@ function findAll(req, res) {
 
   }
 
-  async function validatePerson(req) {
+  async function validatePerson(req, is_new = true) {
     
     const validate = validator({ format: 'YYYY-MM-DD' })
     
@@ -54,17 +55,19 @@ function findAll(req, res) {
     if (data > dataAtual) {
         throw getObjException("Esta data não pode ser futura!",400);
     }
-    
-    if(!isCpf(req.body.cpf)){
-        throw getObjException("CPF inválido!",400);
-    }
-    
-    const cpfExists = await Modelperson.findOne({
-      where:({cpf:req.body.cpf})
-    });
 
-    if(cpfExists != null) {
-      throw getObjException("Esse CPF já foi cadastrado!",400);
+    if (is_new) {
+      if(!isCpf(req.body.cpf)){
+          throw getObjException("CPF inválido!",400);
+      }
+      
+      const cpfExists = await Modelperson.findOne({
+        where:({cpf:req.body.cpf})
+      });
+  
+      if(cpfExists != null) {
+        throw getObjException("Esse CPF já foi cadastrado!",400);
+      }
     }
 
   }
@@ -81,20 +84,14 @@ function findAll(req, res) {
 
   async function updateperson(req, res) {
 
-    req.body.cpf = req.body.cpf.replace(/\D/g,'');
-    console.log(req.body)
-
-    const validar = validatePerson(req);
+    const validar = validatePerson(req, false);
 
     validar.then(result => {
 
       const dataPost = {
           name: req.body.name,
-          birthday: req.body.birthday,
-          cpf:req.body.cpf
+          birthday: req.body.birthday
       };
-      console.log(req.body)
-
 
       const conditional = {
         where: {
