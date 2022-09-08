@@ -26,7 +26,7 @@ export default function Edit() {
     axios.put(`http://localhost:3001/person/${objPerson.id}`, dataPost)
       .then(response => {
         
-        alert('Dados atualizados com sucesso!!');
+        alert('Sucess!!!');
         navigate('/');
 
       }).catch(error => alert(error.response.data.message));
