@@ -5,6 +5,7 @@ import Container from 'react-bootstrap/Container';
 import Button from 'react-bootstrap/Button';
 import axios from 'axios';
 import { useNavigate } from "react-router-dom";
+import moment from 'moment';
 
 const Index = (props) => {
   const navigate = useNavigate();
@@ -13,6 +14,9 @@ const Index = (props) => {
   const [cpf, setCpf] = useState('');
   const [id] = useState([])
   const [person, setPerson] = useState([]);
+
+  let birthDate = moment(person.birthday).format('MMM Do YY');
+
 
   useEffect(() => {
 
@@ -59,7 +63,7 @@ const Index = (props) => {
               <tr key={plp.id}>
                 <td>{plp.id}</td>
                 <td>{plp.name}</td>
-                <td>{plp.birthday}</td>
+                <td>{moment(plp.birthday).utc().format('MMM-DD-YY')}</td>
                 <td>{plp.cpf}</td>
                 <td>
                   <Button
